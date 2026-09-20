@@ -10,4 +10,4 @@ Formålet med StudyFlow er at hjælpe studerende med at skabe overblik over stud
 - Detaljevisning af en opgave
 
 ## Demovideo
-[Se demovideo af StudyFlow] (StudyFlow_Demo.mp4)
+[Se demovideo af StudyFlow](StudyFlow_Demo.mp4)
