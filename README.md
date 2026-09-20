@@ -1,0 +1,13 @@
+# StudyFlow
+StudyFlow er en simpel mobilapplikation udviklet i React Native med Expo.
+
+Formålet med StudyFlow er at hjælpe studerende med at skabe overblik over studieopgaver og deadlines.
+
+## Funktioner
+- Oversigt over studieopgaver
+- Visning af fag, deadline og status
+- Navigation mellem tre screens
+- Detaljevisning af en opgave
+
+## Demovideo
+Link til demovideo: [INDSÆT LINK HER]
