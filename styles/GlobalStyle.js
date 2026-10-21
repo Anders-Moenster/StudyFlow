@@ -23,11 +23,12 @@ export const GlobalStyle = StyleSheet.create({
   button: {
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderRadius: 50,
+    paddingVertical: 14,
+    paddingHorizontal: 20,
+    borderRadius: 12,
     backgroundColor: '#2563EB',
-    margin: 10,
+    margin: 8,
+    width: '90%',
   },
 
   buttonText: {
@@ -41,6 +42,7 @@ export const GlobalStyle = StyleSheet.create({
     padding: 15,
     marginBottom: 15,
     borderRadius: 10,
+    width: '100%',
   },
 
   taskTitle: {

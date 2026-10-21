@@ -26,6 +26,26 @@ export default function HomeScreen({ navigation }) {
         onPress={handleButtonPress}
       />
 
+      <ButtonComponent
+        title="Færdige opgaver"
+        onPress={() => navigation.navigate('CompletedTasks')}
+      />
+
+      <ButtonComponent
+        title="Kalender"
+        onPress={() => navigation.navigate('Calendar')}
+      />
+
+      <ButtonComponent
+        title="Studietips"
+        onPress={() => navigation.navigate('StudyTips')}
+      />
+
+      <ButtonComponent
+        title="Profil"
+        onPress={() => navigation.navigate('Profile')}
+      />
+
     </View>
   );
 }

@@ -4,7 +4,21 @@ import { Text, View } from 'react-native';
 import ButtonComponent from '../components/ButtonComponent';
 import { GlobalStyle } from '../styles/GlobalStyle';
 
-export default function TaskDetailsScreen() {
+import { ref, update } from 'firebase/database';
+import { database } from '../firebaseConfig';
+
+export default function TaskDetailsScreen({ route }) {
+
+  const { task } = route.params;
+
+  const markAsDone = () => {
+  const taskRef = ref(database, 'tasks/' + task.id);
+
+  update(taskRef, {
+    status: 'Færdig'
+  });
+};
+
   return (
     <View style={GlobalStyle.container}>
 
@@ -13,12 +27,24 @@ export default function TaskDetailsScreen() {
       </Text>
 
       <Text>
-        Her vises information om opgaven.
+        Titel: {task.title}
+      </Text>
+
+      <Text>
+        Fag: {task.subject}
+      </Text>
+
+      <Text>
+        Deadline: {task.deadline}
+      </Text>
+
+      <Text>
+        Status: {task.status}
       </Text>
 
       <ButtonComponent
         title="Markér som færdig"
-        onPress={() => console.log('Opgaven er færdig')}
+        onPress={markAsDone}
       />
 
     </View>

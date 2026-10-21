@@ -1,49 +1,80 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react'; //"useStae" = Gemmer opgaverne i appen og "useEffect" = vi henter dem.
 import { Text, View, FlatList, Button } from 'react-native';
 
-import { TASKS } from '../data/tasks';
 import ButtonComponent from '../components/ButtonComponent';
 import { GlobalStyle } from '../styles/GlobalStyle';
 
+import { ref, onValue } from 'firebase/database';
+import { database } from '../firebaseConfig';
+
 export default function TasksScreen({ navigation }) {
-  return (
-    <View style={GlobalStyle.container}>
 
-      <Text style={GlobalStyle.title}>
-        Mine opgaver
-      </Text>
+    const [tasks, setTasks] = useState([]); //Start med tom tekst mens arrayet er tomt
 
-    <FlatList
-        data={TASKS}
-        renderItem={({ item }) => {
-            return (
-             <View style={GlobalStyle.taskCard}>
+    useEffect(() => {
 
-                 <Text style={GlobalStyle.taskTitle}>
-                    {item.title}
-                </Text>
+        const tasksRef = ref(database, 'tasks');
 
-                <Text>
-                    Fag: {item.subject}
-                </Text>
+        onValue(tasksRef, (snapshot) => {
 
-                <Text>
-                     Deadline: {item.deadline}
-                </Text>
+            const data = snapshot.val();
 
-                <Text>
-                    Status: {item.status}
-                </Text>
+            if (data) {
+                const taskList = Object.keys(data).map((key) => ({ //Lav Firebase ID om til en opgave i arrayet.
+                    id: key,
+                    ...data[key]
+                }));
 
-                <ButtonComponent
-                    title="Se opgave"
-                    onPress={() => navigation.navigate('TaskDetails')}
-                />
+                setTasks(taskList);
+            }
 
-            </View>
-        );
-    }}
-    />
-    </View>
-  );
+        });
+
+    }, []);
+
+    return (
+        <View style={GlobalStyle.container}>
+
+            <Text style={GlobalStyle.title}>
+                Mine opgaver
+            </Text>
+
+            <ButtonComponent
+                title="Tilføj opgave"
+                onPress={() => navigation.navigate('AddTask')}
+            />
+
+            <FlatList
+                data={tasks}
+                renderItem={({ item }) => {
+                    return (
+                        <View style={GlobalStyle.taskCard}>
+
+                            <Text style={GlobalStyle.taskTitle}>
+                                {item.title}
+                            </Text>
+
+                            <Text>
+                                Fag: {item.subject}
+                            </Text>
+
+                            <Text>
+                                Deadline: {item.deadline}
+                            </Text>
+
+                            <Text>
+                                Status: {item.status}
+                            </Text>
+
+                            <ButtonComponent
+                                title="Se opgave"
+                                onPress={() => navigation.navigate('TaskDetails', { task: item })}
+                            />
+
+                        </View>
+                    );
+                }}
+            />
+        </View>
+    );
 }
